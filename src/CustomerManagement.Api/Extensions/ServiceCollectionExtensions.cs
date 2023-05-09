@@ -1,8 +1,11 @@
-﻿using CustomerManagement.Api.Support;
+﻿using CustomerManagement.Api.Configuration;
+using CustomerManagement.Api.Support;
 using CustomerManagement.Api.Swagger;
 using CustomerManagement.Common.Extensions;
+using CustomerManagement.Data;
 using CustomerManagement.Dto.Support;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManagement.Api.Extensions
 {
@@ -35,6 +38,23 @@ namespace CustomerManagement.Api.Extensions
         {
         }
 
+        /// <summary>
+        ///     Add database
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="appSettings"></param>
+        public static void AddDatabase(this IServiceCollection services, AppSettings appSettings)
+        {
+            services
+                .AddDbContext<CustomerManagementContext>(options =>
+                    options.UseSqlServer(appSettings.Database.ConnectionString)
+                );
+        }
+
+        /// <summary>
+        ///     Add API versioning
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddVersioning(this IServiceCollection services)
         {
             services.AddApiVersioning(options =>
