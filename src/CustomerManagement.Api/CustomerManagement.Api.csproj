@@ -40,7 +40,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Controllers\" />
+      <ProjectReference Include="..\CustomerManagement.Common\CustomerManagement.Common.csproj" />
+      <ProjectReference Include="..\CustomerManagement.Domain\CustomerManagement.Domain.csproj" />
+      <ProjectReference Include="..\CustomerManagement.Dto\CustomerManagement.Dto.csproj" />
     </ItemGroup>
 
 </Project>

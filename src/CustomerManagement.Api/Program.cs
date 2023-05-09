@@ -1,4 +1,7 @@
 using CustomerManagement.Api.Extensions;
+using CustomerManagement.Api.Support;
+using CustomerManagement.Domain.Support;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerAndConfig();
+builder.Services.AddVersioning();
+builder.Services.AddMediatR(ApiAssemblyReference.Assembly);
 
 var app = builder.Build();
 

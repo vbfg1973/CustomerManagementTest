@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Domain.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Dto", "CustomerManagement.Dto\CustomerManagement.Dto.csproj", "{8BBAEFC1-0CA5-4951-ADCA-992C0D523F7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Common", "CustomerManagement.Common\CustomerManagement.Common.csproj", "{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,9 @@ Global
 		{8BBAEFC1-0CA5-4951-ADCA-992C0D523F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BBAEFC1-0CA5-4951-ADCA-992C0D523F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BBAEFC1-0CA5-4951-ADCA-992C0D523F7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
