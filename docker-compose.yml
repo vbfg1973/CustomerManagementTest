@@ -1,0 +1,45 @@
+version: '3'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  seq:
+    image: "datalust/seq:latest"
+    restart: unless-stopped
+    networks:
+      - app-tier
+    ports:
+     - "5341:80"
+    environment:
+     - ACCEPT_EULA=Y
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: unless-stopped
+    user: root
+    networks:
+      - app-tier
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=M8DEUPPA55SWORD!
+    volumes:
+      - CHRISRUSSELL_DB_VOL:/var/opt/mssql/data
+
+  api:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - app-tier
+    environment:
+      Settings__Database__ConnectionString: "Server=db;Database=CustomerManagement;User Id=sa;Password=M8DEUPPA55SWORD!;TrustServerCertificate=True"
+    depends_on:
+      - db
+
+volumes:
+  CHRISRUSSELL_DB_VOL:

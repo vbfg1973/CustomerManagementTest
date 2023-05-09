@@ -1,6 +1,6 @@
 namespace CustomerManagement.Data.Models
 {
-    public class ContactDetails
+    public class ContactDetail
     {
         public Guid Id { get; set; }
 

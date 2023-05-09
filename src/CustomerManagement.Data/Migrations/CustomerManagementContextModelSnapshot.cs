@@ -56,9 +56,25 @@ namespace CustomerManagement.Data.Migrations
                     b.HasIndex("PostalTown");
 
                     b.ToTable("Addresses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("38ed5f3f-3460-40ba-8009-93371fefdfa2"),
+                            AddressLine1 = "22 Oil Drum Lane",
+                            PostCode = "W1A 1AA",
+                            PostalTown = "East Cheam"
+                        },
+                        new
+                        {
+                            Id = new Guid("7242a930-fc47-4244-a97d-52b515aea1e4"),
+                            AddressLine1 = "22 Acacia Avenue",
+                            PostCode = "M60 1AA",
+                            PostalTown = "Salford"
+                        });
                 });
 
-            modelBuilder.Entity("CustomerManagement.Data.Models.ContactDetails", b =>
+            modelBuilder.Entity("CustomerManagement.Data.Models.ContactDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,6 +101,24 @@ namespace CustomerManagement.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("ContactDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f5eea8e5-accf-4593-bcd9-016a897cd0e1"),
+                            ContactType = 0,
+                            CustomerId = new Guid("e5eafda2-c5d9-46b5-b364-95bb6da27b58"),
+                            Detail = "dcarter.customermanagement@gmail.com",
+                            IsPreferred = true
+                        },
+                        new
+                        {
+                            Id = new Guid("de920a0d-9453-487b-9c65-4ee865bd417f"),
+                            ContactType = 2,
+                            CustomerId = new Guid("e5eafda2-c5d9-46b5-b364-95bb6da27b58"),
+                            Detail = "0123456789",
+                            IsPreferred = false
+                        });
                 });
 
             modelBuilder.Entity("CustomerManagement.Data.Models.Customer", b =>
@@ -98,7 +132,6 @@ namespace CustomerManagement.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Middlenames")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
@@ -114,6 +147,15 @@ namespace CustomerManagement.Data.Migrations
                     b.HasIndex("FirstName", "Surname");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e5eafda2-c5d9-46b5-b364-95bb6da27b58"),
+                            FirstName = "Darcy",
+                            Surname = "Carter",
+                            Title = "Mr"
+                        });
                 });
 
             modelBuilder.Entity("CustomerManagement.Data.Models.CustomerAddress", b =>
@@ -132,9 +174,23 @@ namespace CustomerManagement.Data.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("CustomerAddresses");
+
+                    b.HasData(
+                        new
+                        {
+                            CustomerId = new Guid("e5eafda2-c5d9-46b5-b364-95bb6da27b58"),
+                            AddressId = new Guid("38ed5f3f-3460-40ba-8009-93371fefdfa2"),
+                            IsDefaultAddress = true
+                        },
+                        new
+                        {
+                            CustomerId = new Guid("e5eafda2-c5d9-46b5-b364-95bb6da27b58"),
+                            AddressId = new Guid("7242a930-fc47-4244-a97d-52b515aea1e4"),
+                            IsDefaultAddress = false
+                        });
                 });
 
-            modelBuilder.Entity("CustomerManagement.Data.Models.ContactDetails", b =>
+            modelBuilder.Entity("CustomerManagement.Data.Models.ContactDetail", b =>
                 {
                     b.HasOne("CustomerManagement.Data.Models.Customer", "Customer")
                         .WithMany("ContactDetails")
@@ -148,21 +204,28 @@ namespace CustomerManagement.Data.Migrations
             modelBuilder.Entity("CustomerManagement.Data.Models.CustomerAddress", b =>
                 {
                     b.HasOne("CustomerManagement.Data.Models.Address", null)
-                        .WithMany()
+                        .WithMany("CustomerAddresses")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CustomerManagement.Data.Models.Customer", null)
-                        .WithMany()
+                        .WithMany("CustomerAddresses")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CustomerManagement.Data.Models.Address", b =>
+                {
+                    b.Navigation("CustomerAddresses");
+                });
+
             modelBuilder.Entity("CustomerManagement.Data.Models.Customer", b =>
                 {
                     b.Navigation("ContactDetails");
+
+                    b.Navigation("CustomerAddresses");
                 });
 #pragma warning restore 612, 618
         }

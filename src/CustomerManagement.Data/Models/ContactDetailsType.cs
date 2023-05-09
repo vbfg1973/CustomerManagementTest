@@ -2,8 +2,8 @@ namespace CustomerManagement.Data.Models
 {
     public enum ContactDetailsType
     {
-        Email,
-        Mobile,
-        Landline
+        Email = 0,
+        Mobile = 1,
+        Landline = 2
     }
 }

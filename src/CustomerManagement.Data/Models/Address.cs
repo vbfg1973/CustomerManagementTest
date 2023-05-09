@@ -38,6 +38,6 @@ namespace CustomerManagement.Data.Models
         public string PostCode { get; set; } = null!;
 
         public List<Customer> Customers { get; set; } = new();
-        // public List<CustomerAddress> CustomerAddresses { get; set; } = new();
+        public List<CustomerAddress> CustomerAddresses { get; set; } = new();
     }
 }

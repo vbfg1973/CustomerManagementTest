@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomerManagement.Data.TypeConfiguration
 {
-    public class ContactDetailsTypeConfiguration : IEntityTypeConfiguration<ContactDetails>
+    public class ContactDetailsTypeConfiguration : IEntityTypeConfiguration<ContactDetail>
     {
-        public void Configure(EntityTypeBuilder<ContactDetails> builder)
+        public void Configure(EntityTypeBuilder<ContactDetail> builder)
         {
             builder
                 .HasOne<Customer>(contactDetails => contactDetails.Customer)

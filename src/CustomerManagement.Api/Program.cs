@@ -1,5 +1,6 @@
 using CustomerManagement.Api.Extensions;
 using CustomerManagement.Api.Support;
+using CustomerManagement.Data;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MigrateDatabase<CustomerManagementContext>();
 app.UseCorrelationId();
 app.UseCustomExceptionHandler();
 app.UseHttpsRedirection();
