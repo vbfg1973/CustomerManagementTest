@@ -10,7 +10,7 @@ namespace CustomerManagement.Data.TypeConfiguration
         {
             builder
                 .HasIndex(x => x.PostCode);
-            
+
             builder
                 .HasIndex(x => x.PostalTown);
         }

@@ -35,6 +35,10 @@ namespace CustomerManagement.Api.Extensions
         {
         }
 
+        /// <summary>
+        ///     Add API versioning
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddVersioning(this IServiceCollection services)
         {
             services.AddApiVersioning(options =>

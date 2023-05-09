@@ -12,7 +12,7 @@ namespace CustomerManagement.Data
 
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<ContactDetails> ContactDetails { get; set; } = null!;
-        
+
         public virtual DbSet<Address> Addresses { get; set; } = null!;
         public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; } = null!;
     }

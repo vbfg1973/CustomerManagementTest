@@ -25,12 +25,12 @@ namespace CustomerManagement.Data.TypeConfiguration
                     {
                         joinTable
                             .Property(customerAddress => customerAddress.IsDefaultAddress);
-                        
+
                         joinTable
                             .HasKey(customerAddress => new { customerAddress.CustomerId, customerAddress.AddressId });
                     }
                 );
-            
+
 
             // Composite key
             builder.HasIndex(x => new { x.FirstName, x.Surname });

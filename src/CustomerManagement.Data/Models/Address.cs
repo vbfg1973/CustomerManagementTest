@@ -21,7 +21,7 @@ namespace CustomerManagement.Data.Models
         ///     Third address line. May be empty
         /// </summary>
         public string? AddressLine3 { get; set; }
-        
+
         /// <summary>
         ///     The postal town. Never empty.
         /// </summary>
