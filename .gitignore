@@ -1,0 +1,92 @@
+# OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Subversion files
+.svn
+
+# Office Temp Files
+~$*
+
+# Archive files and binaries
+*.zip
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.exe
+
+bin/
+obj/
+
+*/bin/
+*/obj/
+*azuredebug*
+*Downloaded Profiling Logs*
+*/Backup*
+
+*UpgradeLog*
+
+*/rcf*
+*/rcf/
+rcf/
+.vs
+
+# Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+obj/
+csx/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+*Publish.xml
+csx/
+
+# MonoDevelop. It's happened before.
+*.pidb
+*.userprefs
+
+# JetBrains Tooling
+_ReSharper*/
+*.resharper
+
+# NuGet
+**/packages/
+!packages/repositories.config
+
+# Police StyleCop
+*.StyleCop
+
+# Miscellaneous jibber jabber
+.idea
+*.pubxml
+/.sonarqube
+/.publish/*
+/.artifact/
+*.dtp
+*.dtp.*
+*.vsp
+*.diagsession
