@@ -37,7 +37,7 @@ namespace CustomerManagement.Data.Models
         /// </summary>
         public string PostCode { get; set; } = null!;
 
-        public ICollection<Customer> Customers { get; set; }
-        public List<CustomerAddress> CustomerAddresses { get; set; }
+        public List<Customer> Customers { get; set; } = new();
+        // public List<CustomerAddress> CustomerAddresses { get; set; } = new();
     }
 }

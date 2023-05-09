@@ -12,25 +12,7 @@ namespace CustomerManagement.Data.TypeConfiguration
             builder
                 .HasMany(customer => customer.Addresses)
                 .WithMany(address => address.Customers)
-                .UsingEntity<CustomerAddress>(
-                    right => right
-                        .HasOne(customerAddress => customerAddress.Address)
-                        .WithMany(customer => customer.CustomerAddresses)
-                        .HasForeignKey(customerAddress => customerAddress.AddressId),
-                    left => left
-                        .HasOne(customerAddress => customerAddress.Customer)
-                        .WithMany(address => address.CustomerAddresses)
-                        .HasForeignKey(customerAddress => customerAddress.CustomerId),
-                    joinTable =>
-                    {
-                        joinTable
-                            .Property(customerAddress => customerAddress.IsDefaultAddress);
-
-                        joinTable
-                            .HasKey(customerAddress => new { customerAddress.CustomerId, customerAddress.AddressId });
-                    }
-                );
-
+                .UsingEntity<CustomerAddress>(j => j.HasKey(k => new {k.CustomerId, k.AddressId}));
 
             // Composite key
             builder.HasIndex(x => new { x.FirstName, x.Surname });

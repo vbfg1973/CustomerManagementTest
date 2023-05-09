@@ -1,15 +1,18 @@
 using CustomerManagement.Api.Extensions;
 using CustomerManagement.Api.Support;
-using CustomerManagement.Domain.Support;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var appSettings = builder.ConfigureApp();
+builder.ConfigureLogging();
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerAndConfig();
 builder.Services.AddVersioning();
+builder.Services.AddDatabase(appSettings);
 builder.Services.AddMediatR(ApiAssemblyReference.Assembly);
 
 var app = builder.Build();

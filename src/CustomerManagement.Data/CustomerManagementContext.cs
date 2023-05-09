@@ -1,4 +1,5 @@
 ﻿using CustomerManagement.Data.Models;
+using CustomerManagement.Data.Support;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManagement.Data
@@ -15,5 +16,15 @@ namespace CustomerManagement.Data
 
         public virtual DbSet<Address> Addresses { get; set; } = null!;
         public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; } = null!;
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Missed this for hours!
+            modelBuilder.ApplyConfigurationsFromAssembly(DataAssemblyReference.Assembly);
+        }
     }
 }
