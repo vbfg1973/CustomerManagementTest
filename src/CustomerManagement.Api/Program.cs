@@ -1,11 +1,16 @@
+using CustomerManagement.Api.Extensions;
+using CustomerManagement.Api.Support;
+using CustomerManagement.Domain.Support;
+using MediatR;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerAndConfig();
+builder.Services.AddVersioning();
+builder.Services.AddMediatR(ApiAssemblyReference.Assembly);
 
 var app = builder.Build();
 
@@ -16,10 +21,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCorrelationId();
+app.UseCustomExceptionHandler();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
