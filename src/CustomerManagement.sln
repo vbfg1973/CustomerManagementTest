@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Domain",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Domain.Tests", "CustomerManagement.Domain.Tests\CustomerManagement.Domain.Tests.csproj", "{FFF7FDF5-1569-49AB-858D-4ECF32B72254}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Dto", "CustomerManagement.Dto\CustomerManagement.Dto.csproj", "{8BBAEFC1-0CA5-4951-ADCA-992C0D523F7B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Common", "CustomerManagement.Common\CustomerManagement.Common.csproj", "{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}"
 EndProject
 Global
@@ -46,10 +44,6 @@ Global
 		{FFF7FDF5-1569-49AB-858D-4ECF32B72254}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFF7FDF5-1569-49AB-858D-4ECF32B72254}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFF7FDF5-1569-49AB-858D-4ECF32B72254}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BBAEFC1-0CA5-4951-ADCA-992C0D523F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BBAEFC1-0CA5-4951-ADCA-992C0D523F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BBAEFC1-0CA5-4951-ADCA-992C0D523F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BBAEFC1-0CA5-4951-ADCA-992C0D523F7B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Release|Any CPU.ActiveCfg = Release|Any CPU
