@@ -1,4 +1,6 @@
-﻿namespace CustomerManagement.Api.Middleware
+﻿using Azure.Core;
+
+namespace CustomerManagement.Api.Middleware
 {
     /// <summary>
     /// Custom middleware for populating a correlationId if not present on request
@@ -27,6 +29,7 @@
             if (!context.Request.Headers.TryGetValue(CorrelationIdHeaderKey, out var correlationId))
             {
                 correlationId = Guid.NewGuid().ToString();
+                context.Request.Headers.Add(CorrelationIdHeaderKey, correlationId);
             }
 
             context.Response.OnStarting(() =>

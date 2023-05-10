@@ -2,6 +2,7 @@ using CustomerManagement.Api.Extensions;
 using CustomerManagement.Api.Support;
 using CustomerManagement.Data;
 using MediatR;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,7 @@ if (app.Environment.IsDevelopment())
 app.MigrateDatabase<CustomerManagementContext>();
 app.UseCorrelationId();
 app.UseCustomExceptionHandler();
+app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  app-tier:
+  chrisrussell-customermanagement-network:
     driver: bridge
 
 services:
@@ -9,9 +9,10 @@ services:
     image: "datalust/seq:latest"
     restart: unless-stopped
     networks:
-      - app-tier
+      - chrisrussell-customermanagement-network
     ports:
-     - "5341:80"
+     - "5341:5341"
+     - "80:80"
     environment:
      - ACCEPT_EULA=Y
 
@@ -20,7 +21,7 @@ services:
     restart: unless-stopped
     user: root
     networks:
-      - app-tier
+      - chrisrussell-customermanagement-network
     ports:
       - "1433:1433"
     environment:
@@ -35,11 +36,15 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     networks:
-      - app-tier
+      - chrisrussell-customermanagement-network
+    ports:
+     - "51770:51770"
     environment:
+      ASPNETCORE_ENVIRONMENT: Development
       Settings__Database__ConnectionString: "Server=db;Database=CustomerManagement;User Id=sa;Password=M8DEUPPA55SWORD!;TrustServerCertificate=True"
     depends_on:
       - db
+      - seq
 
 volumes:
   CHRISRUSSELL_DB_VOL:
