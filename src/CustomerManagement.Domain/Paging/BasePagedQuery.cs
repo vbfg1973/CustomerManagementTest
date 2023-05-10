@@ -10,10 +10,10 @@ namespace CustomerManagement.Domain.Paging
         /// </summary>
         /// <param name="pageSize"></param>
         /// <param name="pageNumber"></param>
-        protected BasePagedQuery(int pageSize, int pageNumber)
+        protected BasePagedQuery(int? pageSize, int? pageNumber)
         {
-            PageSize = pageSize;
-            PageNumber = pageNumber;
+            PageSize = pageSize ?? 25;
+            PageNumber = pageNumber ?? 1;
         }
 
         /// <summary>
