@@ -1,5 +1,8 @@
-﻿using MediatR;
+﻿using System.Diagnostics;
+using CustomerManagement.Common.Logging;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace CustomerManagement.Api.Controllers
 {
@@ -41,11 +44,18 @@ namespace CustomerManagement.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Item>> GetItems()
         {
-            _logger.LogInformation("Message=This is the message");
+            var sw = new Stopwatch();
+            sw.Start();
             
-            return Enumerable
+            var results = Enumerable
                 .Range(1, 100)
-                .Select(x => new Item { Id = Guid.NewGuid() });
+                .Select(x => new Item { Id = Guid.NewGuid() }).ToList();
+            
+            _logger.LogInformation("{Method} {Message} {Elapsed}", nameof(GetItems), "Done", sw.Elapsed);
+
+            sw.Stop();
+            
+            return results;
         }
     }
 }
