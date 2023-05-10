@@ -57,7 +57,6 @@ FROM runtime AS final
 
 # Environment variables for runtime. Run on port well away from standard services for collision avoidance
 ENV ASPNETCORE_URLS=http://+:51770
-ENV ASPNETCORE_ENVIRONMENT=Production
 
 # Poke a hole
 EXPOSE 51770/tcp

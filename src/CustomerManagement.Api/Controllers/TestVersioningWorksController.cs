@@ -41,6 +41,8 @@ namespace CustomerManagement.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Item>> GetItems()
         {
+            _logger.LogInformation("Message=This is the message");
+            
             return Enumerable
                 .Range(1, 100)
                 .Select(x => new Item { Id = Guid.NewGuid() });

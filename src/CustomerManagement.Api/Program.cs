@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
 app.MigrateDatabase<CustomerManagementContext>();
 app.UseCorrelationId();
 app.UseCustomExceptionHandler();
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
