@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using CustomerManagement.Api.Extensions;
 using CustomerManagement.Common.Logging;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +52,7 @@ namespace CustomerManagement.Api.Controllers
                 .Range(1, 100)
                 .Select(x => new Item { Id = Guid.NewGuid() }).ToList();
             
-            _logger.LogInformation("{Method} {Message} {Elapsed}", nameof(GetItems), "Done", sw.Elapsed);
+            _logger.LogInformation("{Method} {Message} {Elapsed} {CorrelationId}", nameof(GetItems), "Done", sw.Elapsed, Request.GetCorrelationId());
 
             sw.Stop();
             
