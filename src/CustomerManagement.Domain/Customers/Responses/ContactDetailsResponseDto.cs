@@ -5,7 +5,7 @@ namespace CustomerManagement.Domain.Customers.Responses
     /// <summary>
     ///     Customer's contact details
     /// </summary>
-    public class ContactDetailsResponse
+    public class ContactDetailsResponseDto
     {
         /// <summary>
         ///     Unique identifier for contact details

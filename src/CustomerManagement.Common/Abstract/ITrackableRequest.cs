@@ -1,9 +1,9 @@
-﻿namespace CustomerManagement.Domain.Customers
+﻿namespace CustomerManagement.Common.Abstract
 {
     /// <summary>
     ///     For ensuring all requests are trackable by their correlationId
     /// </summary>
-    public interface ITrackableCustomerRequest
+    public interface ITrackableRequest
     {
         /// <summary>
         ///     The correlation id of the request

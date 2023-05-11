@@ -34,11 +34,11 @@ namespace CustomerManagement.Api.Extensions
         ///     Add any health checks required
         /// </summary>
         /// <param name="serviceCollection"></param>
-        public static void AddHealthChecks(this IServiceCollection serviceCollection)
+        public static void AddConfiguredHealthChecks(this IServiceCollection serviceCollection)
         {
-            // serviceCollection
-            //     .AddHealthChecks()
-            //     .AddCheck<ApplicationHealthCheck>("Customer Management API Health Check");
+            serviceCollection
+                .AddHealthChecks()
+                .AddDbContextCheck<CustomerManagementContext>();
         }
 
         /// <summary>

@@ -2,19 +2,20 @@
 using CustomerManagement.Common.Logging;
 using CustomerManagement.Data;
 using CustomerManagement.Domain.Customers.Responses;
+using CustomerManagement.Domain.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CustomerManagement.Domain.Customers.Queries.Queries
+namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerById
 {
     /// <summary>
     ///     Handler for simple id based customer lookup
     /// </summary>
-    public class QueryCustomerByIdHandler : IRequestHandler<QueryCustomerById, CustomerWithAllDetailsResponse>
+    public class CustomerByIdQueryHandler : IRequestHandler<CustomerByIdQuery, CustomerWithAllDetailsResponseDto>
     {
         private readonly CustomerManagementContext _context;
-        private readonly ILogger<QueryCustomerByIdHandler> _logger;
+        private readonly ILogger<CustomerByIdQueryHandler> _logger;
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -23,8 +24,8 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="context"></param>
         /// <param name="mapper"></param>
         /// <param name="logger"></param>
-        public QueryCustomerByIdHandler(CustomerManagementContext context, IMapper mapper,
-            ILogger<QueryCustomerByIdHandler> logger)
+        public CustomerByIdQueryHandler(CustomerManagementContext context, IMapper mapper,
+            ILogger<CustomerByIdQueryHandler> logger)
         {
             _context = context;
             _mapper = mapper;
@@ -38,17 +39,17 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        public async Task<CustomerWithAllDetailsResponse> Handle(QueryCustomerById request,
+        public async Task<CustomerWithAllDetailsResponseDto> Handle(CustomerByIdQuery request,
             CancellationToken cancellationToken)
         {
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Getting a single customer by their ID"),
                 LogFmt.CorrelationId(request.CorrelationId));
 
             var customer = (await _mapper
-                .ProjectTo<CustomerWithAllDetailsResponse>(_context.Customers.Where(x => x.Id == request.Id))
+                .ProjectTo<CustomerWithAllDetailsResponseDto>(_context.Customers.Where(x => x.Id == request.Id))
                 .ToListAsync(cancellationToken)).FirstOrDefault();
 
-            if (customer == null) throw new KeyNotFoundException();
+            if (customer == null) throw new ResourceNotFoundException(ExceptionMessages.CustomerDoesNotExist);
 
             return customer!;
         }

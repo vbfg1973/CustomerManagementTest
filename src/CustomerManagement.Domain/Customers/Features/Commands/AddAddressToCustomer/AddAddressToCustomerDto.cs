@@ -1,15 +1,10 @@
-namespace CustomerManagement.Domain.Customers.Responses
+﻿namespace CustomerManagement.Domain.Customers.Features.Commands.AddAddressToCustomer
 {
     /// <summary>
-    ///     A customer address
+    ///     DTO object for accepting an address
     /// </summary>
-    public class AddressResponse
+    public class AddAddressToCustomerDto
     {
-        /// <summary>
-        ///     Unique identifier for customer's address
-        /// </summary>
-        public Guid Id { get; set; }
-
         /// <summary>
         ///     First Address Line. Often contains premise and thoroughfare information. Never empty
         /// </summary>

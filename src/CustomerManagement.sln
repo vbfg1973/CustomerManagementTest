@@ -5,13 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Api", "CustomerManagement.Api\CustomerManagement.Api.csproj", "{5826ACC8-E635-462E-8789-A0E824210D3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Api.Tests", "CustomerManagement.Api.Tests\CustomerManagement.Api.Tests.csproj", "{C5100EF3-47E7-4D35-9592-909BFB897E78}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Data", "CustomerManagement.Data\CustomerManagement.Data.csproj", "{3052BBCC-663A-441A-BD2F-276249C6C4BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Domain", "CustomerManagement.Domain\CustomerManagement.Domain.csproj", "{5D76A73B-AB31-41A2-9735-E5BB036D2393}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Domain.Tests", "CustomerManagement.Domain.Tests\CustomerManagement.Domain.Tests.csproj", "{FFF7FDF5-1569-49AB-858D-4ECF32B72254}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Common", "CustomerManagement.Common\CustomerManagement.Common.csproj", "{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}"
 EndProject
@@ -28,10 +24,6 @@ Global
 		{5826ACC8-E635-462E-8789-A0E824210D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5826ACC8-E635-462E-8789-A0E824210D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5826ACC8-E635-462E-8789-A0E824210D3E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5100EF3-47E7-4D35-9592-909BFB897E78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5100EF3-47E7-4D35-9592-909BFB897E78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5100EF3-47E7-4D35-9592-909BFB897E78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5100EF3-47E7-4D35-9592-909BFB897E78}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3052BBCC-663A-441A-BD2F-276249C6C4BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3052BBCC-663A-441A-BD2F-276249C6C4BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3052BBCC-663A-441A-BD2F-276249C6C4BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -40,10 +32,6 @@ Global
 		{5D76A73B-AB31-41A2-9735-E5BB036D2393}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D76A73B-AB31-41A2-9735-E5BB036D2393}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D76A73B-AB31-41A2-9735-E5BB036D2393}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FFF7FDF5-1569-49AB-858D-4ECF32B72254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFF7FDF5-1569-49AB-858D-4ECF32B72254}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFF7FDF5-1569-49AB-858D-4ECF32B72254}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFF7FDF5-1569-49AB-858D-4ECF32B72254}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E09A4F9-D453-4F04-B1FE-FC899F29DB69}.Release|Any CPU.ActiveCfg = Release|Any CPU
