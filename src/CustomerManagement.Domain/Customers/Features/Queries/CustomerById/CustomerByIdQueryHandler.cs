@@ -11,7 +11,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerById
     /// <summary>
     ///     Handler for simple id based customer lookup
     /// </summary>
-    public class CustomerByIdQueryHandler : IRequestHandler<ByIdQuery, CustomerWithAllDetailsResponseDto>
+    public class CustomerByIdQueryHandler : IRequestHandler<CustomerByIdQuery, CustomerWithAllDetailsResponseDto>
     {
         private readonly CustomerManagementContext _context;
         private readonly ILogger<CustomerByIdQueryHandler> _logger;
@@ -38,7 +38,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerById
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        public async Task<CustomerWithAllDetailsResponseDto> Handle(ByIdQuery request,
+        public async Task<CustomerWithAllDetailsResponseDto> Handle(CustomerByIdQuery request,
             CancellationToken cancellationToken)
         {
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Getting a single customer by their ID"),

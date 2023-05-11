@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CustomerManagement.Api.Extensions;
+using CustomerManagement.Domain.Customers.Features.Commands.CustomerCreate;
 using CustomerManagement.Domain.Customers.Features.Queries.CustomerById;
 using CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages;
 using MediatR;
@@ -24,7 +25,31 @@ namespace CustomerManagement.Api.Controllers
             _mapper = mapper;
         }
 
+        #region Customer commands
+
+        /// <summary>
+        /// </summary>
+        /// <param name="customerCreateCommandDto"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> CreateCustomer([FromBody] CustomerCreateCommandDto customerCreateCommandDto,
+            CancellationToken cancellationToken)
+        {
+            var customerCreateCommand =
+                _mapper.Map<CustomerCreateCommandDto, CustomerCreateCommand>(customerCreateCommandDto);
+            customerCreateCommand.CorrelationId = Request.GetCorrelationId();
+
+            var customerWithAllDetailsResponseDto = await Mediator.Send(customerCreateCommand, cancellationToken);
+
+            return CreatedAtAction(nameof(GetCustomerById), new { id = customerWithAllDetailsResponseDto.Id },
+                customerWithAllDetailsResponseDto);
+        }
+
+        #endregion
+
         #region Customer queries
+
         /// <summary>
         ///     Returns a customer identified by the customer ID
         /// </summary>
@@ -32,15 +57,17 @@ namespace CustomerManagement.Api.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetCustomerByPagedQuery([FromQuery] CustomersByPagesQueryDto customersByPagesQueryDto, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetCustomerByPagedQuery(
+            [FromQuery] CustomersByPagesQueryDto customersByPagesQueryDto, CancellationToken cancellationToken)
         {
-            var queryCustomersByPages = _mapper.Map<CustomersByPagesQueryDto, CustomerByPagesQuery>(customersByPagesQueryDto);
+            var queryCustomersByPages =
+                _mapper.Map<CustomersByPagesQueryDto, CustomerByPagesQuery>(customersByPagesQueryDto);
             queryCustomersByPages.CorrelationId = Request.GetCorrelationId();
-            
+
             var result = await Mediator.Send(queryCustomersByPages, cancellationToken);
             return Ok(result);
         }
-        
+
         /// <summary>
         ///     Returns a customer identified by the customer ID
         /// </summary>
@@ -50,10 +77,11 @@ namespace CustomerManagement.Api.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetCustomerById(Guid id, CancellationToken cancellationToken)
         {
-            var queryCustomerById = new ByIdQuery { Id = id, CorrelationId = Request.GetCorrelationId()};
+            var queryCustomerById = new CustomerByIdQuery { Id = id, CorrelationId = Request.GetCorrelationId() };
             var result = await Mediator.Send(queryCustomerById, cancellationToken);
             return Ok(result);
         }
+
         #endregion
     }
 }

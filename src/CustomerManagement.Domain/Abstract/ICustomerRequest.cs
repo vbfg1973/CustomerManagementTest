@@ -1,33 +1,33 @@
-﻿namespace CustomerManagement.Domain.Customers.Commands
+﻿namespace CustomerManagement.Domain.Abstract
 {
     /// <summary>
-    ///     Create a basic customer
+    ///     Interface for customer objects
     /// </summary>
-    public class CreateCustomer
+    public interface ICustomerRequest
     {
         /// <summary>
         ///     Customer's personal title
         /// </summary>
-        public string Title { get; init; } = null!;
+        string Title { get; init; }
 
         /// <summary>
         ///     Customer's first name
         /// </summary>
-        public string FirstName { get; init; } = null!;
+        string FirstName { get; init; }
 
         /// <summary>
         ///     Customers middle names if applicable
         /// </summary>
-        public string Middlenames { get; init; } = null!;
+        string? Middlenames { get; init; }
 
         /// <summary>
         ///     Customer's surname
         /// </summary>
-        public string Surname { get; init; } = null!;
+        string Surname { get; init; }
 
         /// <summary>
         ///     Customer's email address
         /// </summary>
-        public string EMail { get; init; } = null!;
+        string EMail { get; init; }
     }
 }
