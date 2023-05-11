@@ -12,6 +12,8 @@
   - docker-compose for ease of local running
   - Basic correlation-id support
   - logging locally to console and SEQ in a parallel running container
+
+** All the functionality is contained within the CustomerManagement.Domain project and follows a command / query vertical slice model imp,emented via Mediatr **
    
 ## Implemented
 
