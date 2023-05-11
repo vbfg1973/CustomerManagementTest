@@ -3,7 +3,7 @@ using CustomerManagement.Domain.Paging;
 namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
 {
     /// <summary>
-    /// Dto object for customer queries
+    ///     Dto object for customer queries
     /// </summary>
     public class CustomersByPagesQueryDto : BasePagedQuery
     {

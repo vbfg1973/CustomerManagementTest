@@ -1,9 +1,7 @@
-﻿using Azure.Core;
-
-namespace CustomerManagement.Api.Middleware
+﻿namespace CustomerManagement.Api.Middleware
 {
     /// <summary>
-    /// Custom middleware for populating a correlationId if not present on request
+    ///     Custom middleware for populating a correlationId if not present on request
     /// </summary>
     public class CorrelationIdMiddleware
     {
@@ -12,7 +10,7 @@ namespace CustomerManagement.Api.Middleware
 
 
         /// <summary>
-        /// ctor
+        ///     ctor
         /// </summary>
         /// <param name="next"></param>
         public CorrelationIdMiddleware(RequestDelegate next)
@@ -21,7 +19,7 @@ namespace CustomerManagement.Api.Middleware
         }
 
         /// <summary>
-        /// Invoke
+        ///     Invoke
         /// </summary>
         /// <param name="context"></param>
         public async Task Invoke(HttpContext context)

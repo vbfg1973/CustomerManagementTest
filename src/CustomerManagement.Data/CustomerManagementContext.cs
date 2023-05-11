@@ -33,12 +33,12 @@ namespace CustomerManagement.Data
                         Id = Guid.Parse("e5eafda2-c5d9-46b5-b364-95bb6da27b58"),
                         Title = "Mr",
                         FirstName = "Darcy",
-                        Surname = "Carter",
+                        Surname = "Carter"
                     });
 
             modelBuilder.Entity<ContactDetail>()
                 .HasData(
-                    new ContactDetail()
+                    new ContactDetail
                     {
                         Id = Guid.Parse("f5eea8e5-accf-4593-bcd9-016a897cd0e1"),
                         CustomerId = Guid.Parse("e5eafda2-c5d9-46b5-b364-95bb6da27b58"),
@@ -46,7 +46,7 @@ namespace CustomerManagement.Data
                         ContactType = ContactDetailsType.Email,
                         IsPreferred = true
                     },
-                    new ContactDetail()
+                    new ContactDetail
                     {
                         Id = Guid.Parse("de920a0d-9453-487b-9c65-4ee865bd417f"),
                         CustomerId = Guid.Parse("e5eafda2-c5d9-46b5-b364-95bb6da27b58"),
@@ -55,17 +55,17 @@ namespace CustomerManagement.Data
                         IsPreferred = false
                     }
                 );
-            
+
             modelBuilder.Entity<Address>()
                 .HasData(
-                    new Address()
+                    new Address
                     {
                         Id = Guid.Parse("38ed5f3f-3460-40ba-8009-93371fefdfa2"),
                         AddressLine1 = "22 Oil Drum Lane",
                         PostalTown = "East Cheam",
                         PostCode = "W1A 1AA"
                     },
-                    new Address()
+                    new Address
                     {
                         Id = Guid.Parse("7242a930-fc47-4244-a97d-52b515aea1e4"),
                         AddressLine1 = "22 Acacia Avenue",
@@ -76,16 +76,16 @@ namespace CustomerManagement.Data
 
             modelBuilder.Entity<CustomerAddress>()
                 .HasData(
-                    new CustomerAddress()
+                    new CustomerAddress
                     {
                         CustomerId = Guid.Parse("e5eafda2-c5d9-46b5-b364-95bb6da27b58"), // Darcy Carter
-                        AddressId = Guid.Parse("38ed5f3f-3460-40ba-8009-93371fefdfa2"),  // Oil Drum Lane
+                        AddressId = Guid.Parse("38ed5f3f-3460-40ba-8009-93371fefdfa2"), // Oil Drum Lane
                         IsDefaultAddress = true
                     },
-                    new CustomerAddress()
+                    new CustomerAddress
                     {
                         CustomerId = Guid.Parse("e5eafda2-c5d9-46b5-b364-95bb6da27b58"), // Darcy Carter
-                        AddressId = Guid.Parse("7242a930-fc47-4244-a97d-52b515aea1e4"),  // Acacia Avenue
+                        AddressId = Guid.Parse("7242a930-fc47-4244-a97d-52b515aea1e4"), // Acacia Avenue
                         IsDefaultAddress = false
                     }
                 );

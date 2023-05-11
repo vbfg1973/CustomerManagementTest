@@ -61,7 +61,7 @@ namespace CustomerManagement.Api.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPut("{customerId:guid}/address/{addressId:guid}/default")]
-        public async Task<IActionResult> AddAddressToCustomer(Guid customerId, Guid addressId,
+        public async Task<IActionResult> SetDefaultCustomerAddress(Guid customerId, Guid addressId,
             CancellationToken cancellationToken)
         {
             var setAddressToDefaultCommand = new SetAddressToDefaultCommand
@@ -123,7 +123,7 @@ namespace CustomerManagement.Api.Controllers
         #region Customer queries
 
         /// <summary>
-        ///     Returns a customer identified by the customer ID
+        ///     Returns customers meeting search criteria
         /// </summary>
         /// <param name="customersByPagesQueryDto"></param>
         /// <param name="cancellationToken"></param>

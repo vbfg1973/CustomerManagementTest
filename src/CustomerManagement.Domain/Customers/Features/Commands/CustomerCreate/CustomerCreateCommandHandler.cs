@@ -2,7 +2,6 @@
 using CustomerManagement.Common.Logging;
 using CustomerManagement.Data;
 using CustomerManagement.Data.Models;
-using CustomerManagement.Domain.Abstract;
 using CustomerManagement.Domain.Customers.Features.Queries.CustomerById;
 using CustomerManagement.Domain.Customers.Responses;
 using MediatR;
@@ -75,7 +74,5 @@ namespace CustomerManagement.Domain.Customers.Features.Commands.CustomerCreate
 
             return customerFull;
         }
-
-
     }
 }

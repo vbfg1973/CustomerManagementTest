@@ -40,7 +40,8 @@ namespace CustomerManagement.Domain.Customers.Features.Commands.CustomerDelete
                 LogFmt.CorrelationId(request));
 
             // Get a 404 if customer doesn't exist
-            if (!_context.Customers.Any(customer => customer.Id == request.Id)) throw new ResourceNotFoundException(ExceptionMessages.CustomerDoesNotExist);
+            if (!_context.Customers.Any(customer => customer.Id == request.Id))
+                throw new ResourceNotFoundException(ExceptionMessages.CustomerDoesNotExist);
 
             var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
 
