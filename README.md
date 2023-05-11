@@ -12,7 +12,7 @@
   - docker-compose for ease of local running
   - Basic correlation-id support
   - logging locally to console and SEQ in a parallel running container
-  
+   
 ## Implemented
 
 - Routes for creation of customers
@@ -52,6 +52,8 @@ All logging occurs to console.
 It is also browsable via SEQ, which is available here:
 
 http://localhost/#/events
+
+Note that docker networks and volumes created have "chrisrussell" or "CHRISRUSSELL" in their names. This should assist with cleaning up resources that kick around later.
 
 ## Usage
 

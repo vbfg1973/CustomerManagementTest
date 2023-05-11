@@ -12,7 +12,7 @@ namespace CustomerManagement.Data.TypeConfiguration
             builder
                 .HasMany(customer => customer.Addresses)
                 .WithMany(address => address.Customers)
-                .UsingEntity<CustomerAddress>(j => j.HasKey(k => new {k.CustomerId, k.AddressId}));
+                .UsingEntity<CustomerAddress>(j => j.HasKey(k => new { k.CustomerId, k.AddressId }));
 
             // Composite key
             builder.HasIndex(x => new { x.FirstName, x.Surname });

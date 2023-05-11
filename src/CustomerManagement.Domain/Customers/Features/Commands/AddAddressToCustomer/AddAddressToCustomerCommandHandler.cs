@@ -80,7 +80,7 @@ namespace CustomerManagement.Domain.Customers.Features.Commands.AddAddressToCust
             _logger.LogDebug("{Message} {CorrelationId}",
                 LogFmt.Message($"Added an address to a customer identified by {request.CustomerId}"),
                 LogFmt.CorrelationId(request));
-            
+
             // Get the whole customer and return
             var customerFull =
                 await _mediator.Send(

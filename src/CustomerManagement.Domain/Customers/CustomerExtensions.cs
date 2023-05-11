@@ -49,7 +49,8 @@ namespace CustomerManagement.Domain.Customers
         /// <param name="customerRequestCreateCommand"></param>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public static ContactDetail CreateInitialCustomerContactDetail(this ICustomerRequest customerRequestCreateCommand,
+        public static ContactDetail CreateInitialCustomerContactDetail(
+            this ICustomerRequest customerRequestCreateCommand,
             Guid customerId)
         {
             return new ContactDetail

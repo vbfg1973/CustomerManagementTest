@@ -1,4 +1,3 @@
-using CustomerManagement.Common;
 using CustomerManagement.Common.Abstract;
 using CustomerManagement.Domain.Abstract;
 using CustomerManagement.Domain.Customers.Responses;
@@ -9,7 +8,8 @@ namespace CustomerManagement.Domain.Customers.Features.Commands.CustomerCreate
     /// <summary>
     ///     Create a basic customer
     /// </summary>
-    public class CustomerCreateCommand : IRequest<CustomerWithAllDetailsResponseDto>, ICustomerRequest, ITrackableRequest
+    public class CustomerCreateCommand : IRequest<CustomerWithAllDetailsResponseDto>, ICustomerRequest,
+        ITrackableRequest
     {
         /// <summary>
         ///     Customer's personal title

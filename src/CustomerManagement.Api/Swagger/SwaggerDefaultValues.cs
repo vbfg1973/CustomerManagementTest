@@ -45,7 +45,7 @@ namespace CustomerManagement.Api.Swagger
                         response.Content.Remove(contentType);
             }
         }
-        
+
         /// <summary>
         ///     Supported parameters
         /// </summary>
