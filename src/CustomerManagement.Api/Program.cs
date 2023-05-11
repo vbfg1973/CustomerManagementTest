@@ -2,7 +2,6 @@ using CustomerManagement.Api.Extensions;
 using CustomerManagement.Api.Support;
 using CustomerManagement.Data;
 using CustomerManagement.Domain.Support;
-using MediatR;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 

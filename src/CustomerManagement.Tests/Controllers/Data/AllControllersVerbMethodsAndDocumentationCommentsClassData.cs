@@ -49,7 +49,5 @@ namespace CustomerManagement.Tests.Controllers.Data
         {
             return GetEnumerator();
         }
-
-
     }
 }

@@ -7,7 +7,8 @@ namespace CustomerManagement.Tests.Controllers
     {
         [Theory]
         [ClassData(typeof(AllControllersVerbMethodsAndDocumentationCommentsClassData))]
-        public void Given_Public_Controller_Http_Method_Has_Xml_Documentation_Comment(string typeName, string methodName,
+        public void Given_Public_Controller_Http_Method_Has_Xml_Documentation_Comment(string typeName,
+            string methodName,
             string xmlDocumentation)
         {
             xmlDocumentation
