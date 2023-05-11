@@ -14,7 +14,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
     ///     Handler for simple id based customer lookup
     /// </summary>
     public class
-        CustomerByPagesQueryHandler : IRequestHandler<ByPagesQuery,
+        CustomerByPagesQueryHandler : IRequestHandler<CustomerByPagesQuery,
             PagedList<CustomerWithAllDetailsResponseDto>>
     {
         private readonly CustomerManagementContext _context;
@@ -42,7 +42,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        public async Task<PagedList<CustomerWithAllDetailsResponseDto>> Handle(ByPagesQuery request,
+        public async Task<PagedList<CustomerWithAllDetailsResponseDto>> Handle(CustomerByPagesQuery request,
             CancellationToken cancellationToken)
         {
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Querying for customers"),
@@ -74,7 +74,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithSurname(ByPagesQuery request,
+        private IQueryable<Customer> AugmentQueryWithSurname(CustomerByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (!string.IsNullOrEmpty(request.Surname))
@@ -94,7 +94,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithEmail(ByPagesQuery request,
+        private IQueryable<Customer> AugmentQueryWithEmail(CustomerByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.EMail)) return queryable;
@@ -118,7 +118,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithPostalTown(ByPagesQuery request,
+        private IQueryable<Customer> AugmentQueryWithPostalTown(CustomerByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.PostalTown)) return queryable;
@@ -141,7 +141,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithPostCode(ByPagesQuery request,
+        private IQueryable<Customer> AugmentQueryWithPostCode(CustomerByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.PostCode)) return queryable;

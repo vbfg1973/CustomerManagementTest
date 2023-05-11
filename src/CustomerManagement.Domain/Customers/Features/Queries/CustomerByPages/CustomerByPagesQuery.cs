@@ -8,7 +8,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
     /// <summary>
     ///     Paged queries for customers
     /// </summary>
-    public class ByPagesQuery : BasePagedQuery, IRequest<PagedList<CustomerWithAllDetailsResponseDto>>,
+    public class CustomerByPagesQuery : BasePagedQuery, IRequest<PagedList<CustomerWithAllDetailsResponseDto>>,
         ITrackableRequest
     {
         /// <summary>

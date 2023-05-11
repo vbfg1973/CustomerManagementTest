@@ -34,7 +34,7 @@ namespace CustomerManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomerByPagedQuery([FromQuery] CustomersByPagesQueryDto customersByPagesQueryDto, CancellationToken cancellationToken)
         {
-            var queryCustomersByPages = _mapper.Map<CustomersByPagesQueryDto, ByPagesQuery>(customersByPagesQueryDto);
+            var queryCustomersByPages = _mapper.Map<CustomersByPagesQueryDto, CustomerByPagesQuery>(customersByPagesQueryDto);
             queryCustomersByPages.CorrelationId = Request.GetCorrelationId();
             
             var result = await Mediator.Send(queryCustomersByPages, cancellationToken);
