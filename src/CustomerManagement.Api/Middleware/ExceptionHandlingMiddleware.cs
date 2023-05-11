@@ -121,7 +121,7 @@ namespace CustomerManagement.Api.Middleware
         private string GetCorrelationId(HttpContext context)
         {
             if (context.Request.Headers.TryGetValue(CorrelationIdHeaderKey, out var correlationId))
-                return correlationId;
+                return correlationId!;
 
             return string.Empty;
         }
