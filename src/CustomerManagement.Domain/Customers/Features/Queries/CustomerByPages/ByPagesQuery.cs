@@ -1,4 +1,5 @@
-﻿using CustomerManagement.Domain.Customers.Responses;
+﻿using CustomerManagement.Domain.Abstract;
+using CustomerManagement.Domain.Customers.Responses;
 using CustomerManagement.Domain.Paging;
 using MediatR;
 
