@@ -61,7 +61,7 @@ namespace CustomerManagement.Api.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPut("{customerId:guid}/address/{addressId:guid}/default")]
-        public async Task<IActionResult> AddAddressToCustomer(Guid customerId, Guid addressId,
+        public async Task<IActionResult> SetDefaultCustomerAddress(Guid customerId, Guid addressId,
             CancellationToken cancellationToken)
         {
             var setAddressToDefaultCommand = new SetAddressToDefaultCommand
