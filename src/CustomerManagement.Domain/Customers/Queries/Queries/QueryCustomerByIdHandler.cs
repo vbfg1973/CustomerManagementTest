@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CustomerManagement.Common.Logging;
 using CustomerManagement.Data;
 using CustomerManagement.Domain.Customers.Responses;
 using MediatR;
@@ -40,7 +41,9 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         public async Task<CustomerWithAllDetailsResponse> Handle(QueryCustomerById request,
             CancellationToken cancellationToken)
         {
-            var customer = (await _mapper
+            _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Getting a single customer by their ID"), LogFmt.CorrelationId(request.CorrelationId));
+
+        var customer = (await _mapper
                 .ProjectTo<CustomerWithAllDetailsResponse>(_context.Customers.Where(x => x.Id == request.Id))
                 .ToListAsync(cancellationToken)).FirstOrDefault();
 

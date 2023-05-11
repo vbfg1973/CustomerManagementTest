@@ -1,6 +1,7 @@
 using CustomerManagement.Api.Extensions;
 using CustomerManagement.Api.Support;
 using CustomerManagement.Data;
+using CustomerManagement.Domain.Support;
 using MediatR;
 using Serilog;
 
@@ -15,7 +16,10 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerAndConfig();
 builder.Services.AddVersioning();
 builder.Services.AddDatabase(appSettings);
-builder.Services.AddMediatR(ApiAssemblyReference.Assembly);
+// builder.Services.AddHealthChecks();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(DomainAssemblyReference.Assembly));
+builder.Services.AddAutoMapper(DomainAssemblyReference.Assembly, ApiAssemblyReference.Assembly);
 
 var app = builder.Build();
 

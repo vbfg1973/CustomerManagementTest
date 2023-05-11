@@ -21,6 +21,20 @@ namespace CustomerManagement.Api.Controllers
         ///     Returns a customer identified by the customer ID
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="queryCustomersByPages"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetCustomerByPagedQuery([FromQuery] QueryCustomersByPages queryCustomersByPages, CancellationToken cancellationToken)
+        {
+            var result = await Mediator.Send(queryCustomersByPages, cancellationToken);
+            return Ok(result);
+        }
+        
+        /// <summary>
+        ///     Returns a customer identified by the customer ID
+        /// </summary>
+        /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("{id:guid}")]
