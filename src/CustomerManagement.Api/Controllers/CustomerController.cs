@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CustomerManagement.Api.Extensions;
+using CustomerManagement.Domain.Customers.Features.Commands.AddAddressToCustomer;
 using CustomerManagement.Domain.Customers.Features.Commands.CustomerCreate;
 using CustomerManagement.Domain.Customers.Features.Commands.CustomerDelete;
 using CustomerManagement.Domain.Customers.Features.Queries.CustomerById;
@@ -25,6 +26,32 @@ namespace CustomerManagement.Api.Controllers
         {
             _mapper = mapper;
         }
+
+        #region Address commands
+
+        /// <summary>
+        ///     Add address to an already existing customer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="addAddressToCustomerDto"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpPost("{id:guid}/address")]
+        public async Task<IActionResult> AddAddressToCustomer(Guid id, [FromBody] AddAddressToCustomerDto addAddressToCustomerDto,
+            CancellationToken cancellationToken)
+        {
+            var addAddressToCustomerCommand =
+                _mapper.Map<AddAddressToCustomerDto, AddAddressToCustomerCommand>(addAddressToCustomerDto);
+            addAddressToCustomerCommand.CorrelationId = Request.GetCorrelationId();
+            addAddressToCustomerCommand.CustomerId = id;
+
+            var customerWithAllDetailsResponseDto = await Mediator.Send(addAddressToCustomerCommand, cancellationToken);
+
+            return CreatedAtAction(nameof(GetCustomerById), new { id = customerWithAllDetailsResponseDto.Id },
+                customerWithAllDetailsResponseDto);
+        }
+
+        #endregion
 
         #region Customer commands
 

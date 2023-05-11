@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CustomerManagement.Data.Models;
+using CustomerManagement.Domain.Customers.Features.Commands.AddAddressToCustomer;
 using CustomerManagement.Domain.Customers.Features.Commands.CustomerCreate;
 using CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages;
 using CustomerManagement.Domain.Customers.Responses;
@@ -12,23 +13,35 @@ namespace CustomerManagement.Domain.Customers.Mappers
     public class CustomerMappingProfile : Profile
     {
         /// <summary>
-        ///     ctor with mapping rules
+        ///     ctor with mapping rules - Kept the models throughout similar to greatly assist with automapper usage. A real app
+        ///     probably wouldn't have models mirroring quite this closely
         /// </summary>
         public CustomerMappingProfile()
+        {
+            DbModelsToResponses();
+            DtoToQueries();
+            DtoToCommands();
+        }
+
+        private void DtoToCommands()
+        {
+            CreateMap<CustomerCreateCommandDto, CustomerCreateCommand>();
+            CreateMap<CustomerCreateCommand, Customer>();
+
+            CreateMap<AddAddressToCustomerDto, AddAddressToCustomerCommand>();
+            CreateMap<AddAddressToCustomerCommand, Address>();
+        }
+
+        private void DtoToQueries()
+        {
+            CreateMap<CustomersByPagesQueryDto, CustomerByPagesQuery>();
+        }
+
+        private void DbModelsToResponses()
         {
             CreateMap<Customer, CustomerWithAllDetailsResponseDto>();
             CreateMap<Address, AddressResponseDto>();
             CreateMap<ContactDetail, ContactDetailsResponseDto>();
-
-            CreateMap<CustomersByPagesQueryDto, CustomerByPagesQuery>();
-            
-            
-            #region Commands
-
-            CreateMap<CustomerCreateCommandDto, CustomerCreateCommand>();
-            CreateMap<CustomerCreateCommand, Customer>();
-
-            #endregion
         }
     }
 }
