@@ -8,6 +8,6 @@
         /// <summary>
         ///     The correlation id of the request
         /// </summary>
-        string CorrelationId { get; init; }
+        string CorrelationId { get; set; }
     }
 }

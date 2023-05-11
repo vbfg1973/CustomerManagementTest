@@ -3,6 +3,7 @@ using CustomerManagement.Common.Logging;
 using CustomerManagement.Data;
 using CustomerManagement.Data.Models;
 using CustomerManagement.Domain.Customers.Responses;
+using CustomerManagement.Domain.Paging;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,7 +15,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
     /// </summary>
     public class
         QueryCustomerByPagesHandler : IRequestHandler<QueryCustomersByPages,
-            IEnumerable<CustomerWithAllDetailsResponse>>
+            PagedList<CustomerWithAllDetailsResponse>>
     {
         private readonly CustomerManagementContext _context;
         private readonly ILogger<QueryCustomerByPagesHandler> _logger;
@@ -41,11 +42,11 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        public async Task<IEnumerable<CustomerWithAllDetailsResponse>> Handle(QueryCustomersByPages request,
+        public async Task<PagedList<CustomerWithAllDetailsResponse>> Handle(QueryCustomersByPages request,
             CancellationToken cancellationToken)
         {
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Querying for customers"),
-                LogFmt.CorrelationId(request.CorrelationId));
+                LogFmt.CorrelationId(request.CorrelationId!));
 
             IQueryable<Customer> queryable = _context.Customers.Include(x => x.Addresses);
 
@@ -57,21 +58,29 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
 
             queryable = AugmentQueryWithPostCode(request, queryable);
 
+            queryable = queryable.OrderBy(x => x.Surname).ThenBy(x => x.FirstName);
+
             _logger.LogDebug("{ResultCount} {CorrelationId}",
                 LogFmt.ResultCount(_mapper.ProjectTo<CustomerWithAllDetailsResponse>(queryable).Count()),
-                LogFmt.CorrelationId(request.CorrelationId));
+                LogFmt.CorrelationId(request.CorrelationId!));
 
-            return await _mapper.ProjectTo<CustomerWithAllDetailsResponse>(queryable)
-                .ToListAsync(cancellationToken);
+            return await PagedList<CustomerWithAllDetailsResponse>.ToPagedList(
+                _mapper.ProjectTo<CustomerWithAllDetailsResponse>(queryable), request);
         }
 
+        /// <summary>
+        ///     Adds a surname stipulation if present on query object
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
         private IQueryable<Customer> AugmentQueryWithSurname(QueryCustomersByPages request,
             IQueryable<Customer> queryable)
         {
             if (!string.IsNullOrEmpty(request.Surname))
             {
                 _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Adding surname stipulation to query"),
-                    LogFmt.CorrelationId(request.CorrelationId));
+                    LogFmt.CorrelationId(request.CorrelationId!));
 
                 queryable = queryable.Where(x => x.Surname == request.Surname);
             }
@@ -79,13 +88,19 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
             return queryable;
         }
 
+        /// <summary>
+        ///     Adds an email stipulation if present on query object
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
         private IQueryable<Customer> AugmentQueryWithEmail(QueryCustomersByPages request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.EMail)) return queryable;
-            
+
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Adding email stipulation to query"),
-                LogFmt.CorrelationId(request.CorrelationId));
+                LogFmt.CorrelationId(request.CorrelationId!));
 
             queryable = queryable.Where(customer =>
                 customer
@@ -97,13 +112,19 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
             return queryable;
         }
 
+        /// <summary>
+        ///     Adds a postal town stipulation if present on query object
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
         private IQueryable<Customer> AugmentQueryWithPostalTown(QueryCustomersByPages request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.PostalTown)) return queryable;
-            
+
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Adding postal town stipulation to query"),
-                LogFmt.CorrelationId(request.CorrelationId));
+                LogFmt.CorrelationId(request.CorrelationId!));
 
             queryable = queryable.Where(customer =>
                 customer
@@ -114,13 +135,19 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
             return queryable;
         }
 
+        /// <summary>
+        ///     Adds a post code stipulation if present on query object
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
         private IQueryable<Customer> AugmentQueryWithPostCode(QueryCustomersByPages request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.PostCode)) return queryable;
-            
+
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Adding post code stipulation to query"),
-                LogFmt.CorrelationId(request.CorrelationId));
+                LogFmt.CorrelationId(request.CorrelationId!));
 
             queryable = queryable.Where(customer =>
                 customer

@@ -15,6 +15,6 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <summary>
         ///     CorrelationId
         /// </summary>
-        public string CorrelationId { get; init; } = null!;
+        public string CorrelationId { get; set; } = null!;
     }
 }

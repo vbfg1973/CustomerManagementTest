@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
+using CustomerManagement.Common.Logging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerManagement.Api.Middleware
@@ -42,8 +43,8 @@ namespace CustomerManagement.Api.Middleware
 
         private async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            _logger.LogError(ex,
-                $"An unhandled exception has occurred: {ex.Message} CorrelationId: {GetCorrelationId(context)}");
+            _logger.LogError(ex, "{Message} {CorrelationId}", LogFmt.Message("An unhandled exception has occurred: {ex.Message}"), LogFmt.CorrelationId(GetCorrelationId(context)));
+
             var result = string.Empty;
 
             if (ex is KeyNotFoundException)
