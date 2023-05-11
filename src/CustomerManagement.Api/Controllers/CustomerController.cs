@@ -123,7 +123,7 @@ namespace CustomerManagement.Api.Controllers
         #region Customer queries
 
         /// <summary>
-        ///     Returns a customer identified by the customer ID
+        ///     Returns customers meeting search criteria
         /// </summary>
         /// <param name="customersByPagesQueryDto"></param>
         /// <param name="cancellationToken"></param>
