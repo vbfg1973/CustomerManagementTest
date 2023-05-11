@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using CustomerManagement.Common.Abstract;
 
 namespace CustomerManagement.Common.Logging
 {
@@ -19,20 +20,25 @@ namespace CustomerManagement.Common.Logging
         {
             return $"{MessageTag}={message}";
         }
-        
+
         public static string ResultCount(int resultCount)
         {
             return $"{ResultCountTag}={resultCount}";
         }
-        
+
         public static string CorrelationId(string correlationId)
         {
             return $"{CorrelationIdTag}={correlationId}";
         }
-        
+
         public static string CorrelationId(Guid correlationId)
         {
             return $"{CorrelationIdTag}={correlationId.ToString()}";
+        }
+
+        public static string CorrelationId(ITrackableRequest request)
+        {
+            return $"{CorrelationIdTag}={request.CorrelationId}";
         }
 
         public static string Elapsed(Stopwatch stopwatch)

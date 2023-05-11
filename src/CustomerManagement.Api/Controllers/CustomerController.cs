@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CustomerManagement.Api.Extensions;
 using CustomerManagement.Domain.Customers.Features.Commands.CustomerCreate;
+using CustomerManagement.Domain.Customers.Features.Commands.CustomerDelete;
 using CustomerManagement.Domain.Customers.Features.Queries.CustomerById;
 using CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages;
 using MediatR;
@@ -45,6 +46,25 @@ namespace CustomerManagement.Api.Controllers
             return CreatedAtAction(nameof(GetCustomerById), new { id = customerWithAllDetailsResponseDto.Id },
                 customerWithAllDetailsResponseDto);
         }
+        
+        /// <summary>
+        ///     Deletes the customer identified by the customer ID, plus associated contact details and addresses
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteCustomer(Guid id, CancellationToken cancellationToken)
+        {
+            var customerDeleteCommand = new CustomerDeleteCommand()
+                { Id = id, CorrelationId = Request.GetCorrelationId() };
+
+            await Mediator.Send(customerDeleteCommand, cancellationToken);
+
+            return Ok();
+        }
+        
+        
 
         #endregion
 

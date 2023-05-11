@@ -1,4 +1,4 @@
-using CustomerManagement.Domain.Abstract;
+using CustomerManagement.Common.Abstract;
 using CustomerManagement.Domain.Customers.Responses;
 using MediatR;
 

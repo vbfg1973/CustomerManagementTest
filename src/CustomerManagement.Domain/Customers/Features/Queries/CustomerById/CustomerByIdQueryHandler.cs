@@ -2,6 +2,7 @@
 using CustomerManagement.Common.Logging;
 using CustomerManagement.Data;
 using CustomerManagement.Domain.Customers.Responses;
+using CustomerManagement.Domain.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -48,7 +49,7 @@ namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerById
                 .ProjectTo<CustomerWithAllDetailsResponseDto>(_context.Customers.Where(x => x.Id == request.Id))
                 .ToListAsync(cancellationToken)).FirstOrDefault();
 
-            if (customer == null) throw new KeyNotFoundException();
+            if (customer == null) throw new ResourceNotFoundException(ExceptionMessages.CustomerDoesNotExist);
 
             return customer!;
         }

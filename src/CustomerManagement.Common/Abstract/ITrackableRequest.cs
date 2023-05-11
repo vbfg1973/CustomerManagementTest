@@ -1,4 +1,4 @@
-﻿namespace CustomerManagement.Domain.Abstract
+﻿namespace CustomerManagement.Common.Abstract
 {
     /// <summary>
     ///     For ensuring all requests are trackable by their correlationId

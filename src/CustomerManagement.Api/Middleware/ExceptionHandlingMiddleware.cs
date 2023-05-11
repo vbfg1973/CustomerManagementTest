@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using CustomerManagement.Common.Logging;
+using CustomerManagement.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerManagement.Api.Middleware
@@ -43,42 +44,72 @@ namespace CustomerManagement.Api.Middleware
 
         private async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            _logger.LogError(ex, "{Message} {CorrelationId}", LogFmt.Message("An unhandled exception has occurred: {ex.Message}"), LogFmt.CorrelationId(GetCorrelationId(context)));
-
-            var result = string.Empty;
-
-            if (ex is KeyNotFoundException)
+            var result = ex switch
             {
-                var problemDetails = new ProblemDetails
-                {
-                    Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-                    Title = "Not found",
-                    Status = (int)HttpStatusCode.NotFound,
-                    Detail = ex.Message,
-                    Instance = context.Request.Path
-                };
-
-                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                result = JsonSerializer.Serialize(problemDetails);
-            }
-
-            else
-            {
-                ProblemDetails problemDetails = new()
-                {
-                    Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
-                    Title = "Internal Server Error",
-                    Status = (int)HttpStatusCode.InternalServerError,
-                    Instance = context.Request.Path,
-                    Detail = "Internal server error occured!"
-                };
-
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                result = JsonSerializer.Serialize(problemDetails);
-            }
+                ResourceNotFoundException => ResourceNotFoundHandler(context, ex),
+                KeyNotFoundException => KeyNotFoundHandler(context, ex),
+                _ => DefaultHandler(context, ex)
+            };
 
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(result);
+        }
+
+        private string DefaultHandler(HttpContext context, Exception ex)
+        {
+            _logger.LogError(ex, "{Message} {CorrelationId}",
+                LogFmt.Message("An unhandled exception has occurred: {ex.Message}"),
+                LogFmt.CorrelationId(GetCorrelationId(context)));
+
+            ProblemDetails problemDetails = new()
+            {
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+                Title = "Internal Server Error",
+                Status = (int)HttpStatusCode.InternalServerError,
+                Instance = context.Request.Path,
+                Detail = "Internal server error occured!"
+            };
+
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            return JsonSerializer.Serialize(problemDetails);
+        }
+
+        private string KeyNotFoundHandler(HttpContext context, Exception ex)
+        {
+            _logger.LogError(ex, "{Message} {CorrelationId}",
+                LogFmt.Message("An unhandled exception has occurred: {ex.Message}"),
+                LogFmt.CorrelationId(GetCorrelationId(context)));
+
+            var problemDetails = new ProblemDetails
+            {
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                Title = "Not found",
+                Status = (int)HttpStatusCode.NotFound,
+                Detail = ex.Message,
+                Instance = context.Request.Path
+            };
+
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            return JsonSerializer.Serialize(problemDetails);
+        }
+
+        private string ResourceNotFoundHandler(HttpContext context, Exception ex)
+        {
+            _logger.LogWarning("{Message} {CorrelationId}",
+                LogFmt.Message("The requested resource was not found"),
+                LogFmt.CorrelationId(GetCorrelationId(context)));
+
+            var problemDetails = new ProblemDetails
+            {
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                Title = "Not found",
+                Status = (int)HttpStatusCode.NotFound,
+                Detail = ex.Message,
+                Instance = context.Request.Path
+            };
+
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            return JsonSerializer.Serialize(problemDetails);
         }
 
 
@@ -87,7 +118,7 @@ namespace CustomerManagement.Api.Middleware
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public string GetCorrelationId(HttpContext context)
+        private string GetCorrelationId(HttpContext context)
         {
             if (context.Request.Headers.TryGetValue(CorrelationIdHeaderKey, out var correlationId))
                 return correlationId;
