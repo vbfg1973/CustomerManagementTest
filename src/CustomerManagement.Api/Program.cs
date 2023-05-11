@@ -3,6 +3,7 @@ using CustomerManagement.Api.Support;
 using CustomerManagement.Data;
 using CustomerManagement.Domain.Support;
 using MediatR;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services.AddDatabase(appSettings);
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(DomainAssemblyReference.Assembly));
 builder.Services.AddAutoMapper(DomainAssemblyReference.Assembly, ApiAssemblyReference.Assembly);
+builder.Services.AddConfiguredHealthChecks();
 
 var app = builder.Build();
 
@@ -34,6 +36,12 @@ app.MigrateDatabase<CustomerManagementContext>();
 app.UseCorrelationId();
 app.UseCustomExceptionHandler();
 app.UseSerilogRequestLogging();
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    AllowCachingResponses = false
+});
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
