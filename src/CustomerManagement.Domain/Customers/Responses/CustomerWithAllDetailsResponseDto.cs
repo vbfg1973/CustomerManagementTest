@@ -3,7 +3,7 @@
     /// <summary>
     ///     A customer object containing all customer details
     /// </summary>
-    public class CustomerWithAllDetailsResponse
+    public class CustomerWithAllDetailsResponseDto
     {
         /// <summary>
         ///     Unique identifier for customer
@@ -33,11 +33,11 @@
         /// <summary>
         ///     All customer contact avenues
         /// </summary>
-        public List<ContactDetailsResponse> ContactDetails { get; set; }
+        public List<ContactDetailsResponseDto> ContactDetails { get; set; } = new();
 
         /// <summary>
         ///     All customer addresses
         /// </summary>
-        public List<AddressResponse> Addresses { get; set; }
+        public List<AddressResponseDto> Addresses { get; set; } = new();
     }
 }

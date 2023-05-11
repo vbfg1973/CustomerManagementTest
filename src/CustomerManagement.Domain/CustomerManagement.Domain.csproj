@@ -26,4 +26,8 @@
         <ProjectReference Include="..\CustomerManagement.Data\CustomerManagement.Data.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Customers\Features\" />
+    </ItemGroup>
+
 </Project>

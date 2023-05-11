@@ -8,14 +8,14 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CustomerManagement.Domain.Customers.Queries.Queries
+namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
 {
     /// <summary>
     ///     Handler for simple id based customer lookup
     /// </summary>
     public class
-        CustomerByPagesQueryHandler : IRequestHandler<CustomersByPagesQuery,
-            PagedList<CustomerWithAllDetailsResponse>>
+        CustomerByPagesQueryHandler : IRequestHandler<ByPagesQuery,
+            PagedList<CustomerWithAllDetailsResponseDto>>
     {
         private readonly CustomerManagementContext _context;
         private readonly ILogger<CustomerByPagesQueryHandler> _logger;
@@ -42,7 +42,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        public async Task<PagedList<CustomerWithAllDetailsResponse>> Handle(CustomersByPagesQuery request,
+        public async Task<PagedList<CustomerWithAllDetailsResponseDto>> Handle(ByPagesQuery request,
             CancellationToken cancellationToken)
         {
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Querying for customers"),
@@ -61,11 +61,11 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
             queryable = queryable.OrderBy(x => x.Surname).ThenBy(x => x.FirstName);
 
             _logger.LogDebug("{ResultCount} {CorrelationId}",
-                LogFmt.ResultCount(_mapper.ProjectTo<CustomerWithAllDetailsResponse>(queryable).Count()),
+                LogFmt.ResultCount(_mapper.ProjectTo<CustomerWithAllDetailsResponseDto>(queryable).Count()),
                 LogFmt.CorrelationId(request.CorrelationId!));
 
-            return await PagedList<CustomerWithAllDetailsResponse>.ToPagedList(
-                _mapper.ProjectTo<CustomerWithAllDetailsResponse>(queryable), request);
+            return await PagedList<CustomerWithAllDetailsResponseDto>.ToPagedList(
+                _mapper.ProjectTo<CustomerWithAllDetailsResponseDto>(queryable), request);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithSurname(CustomersByPagesQuery request,
+        private IQueryable<Customer> AugmentQueryWithSurname(ByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (!string.IsNullOrEmpty(request.Surname))
@@ -94,7 +94,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithEmail(CustomersByPagesQuery request,
+        private IQueryable<Customer> AugmentQueryWithEmail(ByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.EMail)) return queryable;
@@ -118,7 +118,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithPostalTown(CustomersByPagesQuery request,
+        private IQueryable<Customer> AugmentQueryWithPostalTown(ByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.PostalTown)) return queryable;
@@ -141,7 +141,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithPostCode(CustomersByPagesQuery request,
+        private IQueryable<Customer> AugmentQueryWithPostCode(ByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.PostCode)) return queryable;

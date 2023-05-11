@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CustomerManagement.Api.Extensions;
-using CustomerManagement.Domain.Customers.Queries.Queries;
+using CustomerManagement.Domain.Customers.Features.Queries.CustomerById;
+using CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +34,7 @@ namespace CustomerManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomerByPagedQuery([FromQuery] CustomersByPagesQueryDto customersByPagesQueryDto, CancellationToken cancellationToken)
         {
-            var queryCustomersByPages = _mapper.Map<CustomersByPagesQueryDto, CustomersByPagesQuery>(customersByPagesQueryDto);
+            var queryCustomersByPages = _mapper.Map<CustomersByPagesQueryDto, ByPagesQuery>(customersByPagesQueryDto);
             queryCustomersByPages.CorrelationId = Request.GetCorrelationId();
             
             var result = await Mediator.Send(queryCustomersByPages, cancellationToken);
@@ -49,7 +50,7 @@ namespace CustomerManagement.Api.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetCustomerById(Guid id, CancellationToken cancellationToken)
         {
-            var queryCustomerById = new CustomerByIdQuery { Id = id, CorrelationId = Request.GetCorrelationId()};
+            var queryCustomerById = new ByIdQuery { Id = id, CorrelationId = Request.GetCorrelationId()};
             var result = await Mediator.Send(queryCustomerById, cancellationToken);
             return Ok(result);
         }

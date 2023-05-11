@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CustomerManagement.Data.Models;
-using CustomerManagement.Domain.Customers.Queries.Queries;
+using CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages;
 using CustomerManagement.Domain.Customers.Responses;
 
 namespace CustomerManagement.Domain.Customers.Mappers
@@ -15,11 +15,11 @@ namespace CustomerManagement.Domain.Customers.Mappers
         /// </summary>
         public CustomerMappingProfile()
         {
-            CreateMap<Customer, CustomerWithAllDetailsResponse>();
-            CreateMap<Address, AddressResponse>();
-            CreateMap<ContactDetail, ContactDetailsResponse>();
+            CreateMap<Customer, CustomerWithAllDetailsResponseDto>();
+            CreateMap<Address, AddressResponseDto>();
+            CreateMap<ContactDetail, ContactDetailsResponseDto>();
 
-            CreateMap<CustomersByPagesQueryDto, CustomersByPagesQuery>();
+            CreateMap<CustomersByPagesQueryDto, ByPagesQuery>();
         }
     }
 }

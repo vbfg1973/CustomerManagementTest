@@ -3,7 +3,7 @@ namespace CustomerManagement.Domain.Customers.Responses
     /// <summary>
     ///     A customer address
     /// </summary>
-    public class AddressResponse
+    public class AddressResponseDto
     {
         /// <summary>
         ///     Unique identifier for customer's address

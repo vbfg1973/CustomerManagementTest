@@ -1,11 +1,14 @@
+﻿using CustomerManagement.Domain.Customers.Responses;
 using CustomerManagement.Domain.Paging;
+using MediatR;
 
-namespace CustomerManagement.Domain.Customers.Queries.Queries
+namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages
 {
     /// <summary>
-    /// Dto object for customer queries
+    ///     Paged queries for customers
     /// </summary>
-    public class CustomersByPagesQueryDto : BasePagedQuery
+    public class ByPagesQuery : BasePagedQuery, IRequest<PagedList<CustomerWithAllDetailsResponseDto>>,
+        ITrackableRequest
     {
         /// <summary>
         ///     Limit result to customers with a matching email
@@ -26,5 +29,10 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         ///     Limit results to customers with an address in this postcode
         /// </summary>
         public string? PostCode { get; init; }
+
+        /// <summary>
+        ///     CorrelationId
+        /// </summary>
+        public string CorrelationId { get; set; } = null!;
     }
 }

@@ -1,11 +1,11 @@
 using CustomerManagement.Domain.Customers.Responses;
 using MediatR;
 
-namespace CustomerManagement.Domain.Customers.Queries.Queries
+namespace CustomerManagement.Domain.Customers.Features.Queries.CustomerById
 {
     /// <summary>
     /// </summary>
-    public class CustomerByIdQuery : IRequest<CustomerWithAllDetailsResponse>, ITrackableCustomerRequest
+    public class ByIdQuery : IRequest<CustomerWithAllDetailsResponseDto>, ITrackableRequest
     {
         /// <summary>
         ///     Customer's ID
