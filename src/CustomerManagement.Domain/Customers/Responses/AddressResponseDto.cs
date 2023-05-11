@@ -39,5 +39,10 @@ namespace CustomerManagement.Domain.Customers.Responses
         ///     Correctly formatted postcode. Capitalised and spaced. Never empty
         /// </summary>
         public string PostCode { get; set; } = null!;
+
+        /// <summary>
+        ///     Is the default address for the customer
+        /// </summary>
+        public bool IsDefault { get; set; }
     }
 }

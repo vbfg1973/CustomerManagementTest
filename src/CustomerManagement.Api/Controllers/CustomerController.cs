@@ -3,6 +3,7 @@ using CustomerManagement.Api.Extensions;
 using CustomerManagement.Domain.Customers.Features.Commands.AddAddressToCustomer;
 using CustomerManagement.Domain.Customers.Features.Commands.CustomerCreate;
 using CustomerManagement.Domain.Customers.Features.Commands.CustomerDelete;
+using CustomerManagement.Domain.Customers.Features.Commands.SetAddressToDefault;
 using CustomerManagement.Domain.Customers.Features.Queries.CustomerById;
 using CustomerManagement.Domain.Customers.Features.Queries.CustomerByPages;
 using MediatR;
@@ -37,7 +38,8 @@ namespace CustomerManagement.Api.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost("{id:guid}/address")]
-        public async Task<IActionResult> AddAddressToCustomer(Guid id, [FromBody] AddAddressToCustomerDto addAddressToCustomerDto,
+        public async Task<IActionResult> AddAddressToCustomer(Guid id,
+            [FromBody] AddAddressToCustomerDto addAddressToCustomerDto,
             CancellationToken cancellationToken)
         {
             var addAddressToCustomerCommand =
@@ -46,6 +48,30 @@ namespace CustomerManagement.Api.Controllers
             addAddressToCustomerCommand.CustomerId = id;
 
             var customerWithAllDetailsResponseDto = await Mediator.Send(addAddressToCustomerCommand, cancellationToken);
+
+            return CreatedAtAction(nameof(GetCustomerById), new { id = customerWithAllDetailsResponseDto.Id },
+                customerWithAllDetailsResponseDto);
+        }
+
+        /// <summary>
+        ///     Set an existing address to be the default for the customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="addressId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpPut("{customerId:guid}/address/{addressId:guid}/default")]
+        public async Task<IActionResult> AddAddressToCustomer(Guid customerId, Guid addressId,
+            CancellationToken cancellationToken)
+        {
+            var setAddressToDefaultCommand = new SetAddressToDefaultCommand
+            {
+                CustomerId = customerId,
+                AddressId = addressId,
+                CorrelationId = Request.GetCorrelationId()
+            };
+
+            var customerWithAllDetailsResponseDto = await Mediator.Send(setAddressToDefaultCommand, cancellationToken);
 
             return CreatedAtAction(nameof(GetCustomerById), new { id = customerWithAllDetailsResponseDto.Id },
                 customerWithAllDetailsResponseDto);

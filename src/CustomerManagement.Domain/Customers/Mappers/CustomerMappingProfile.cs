@@ -40,8 +40,11 @@ namespace CustomerManagement.Domain.Customers.Mappers
         private void DbModelsToResponses()
         {
             CreateMap<Customer, CustomerWithAllDetailsResponseDto>();
-            CreateMap<Address, AddressResponseDto>();
             CreateMap<ContactDetail, ContactDetailsResponseDto>();
+            
+            CreateMap<Address, AddressResponseDto>()
+                .ForMember(dest => dest.IsDefault,
+                    opts => opts.MapFrom(src => src.CustomerAddresses.First().IsDefaultAddress));
         }
     }
 }
