@@ -1,6 +1,9 @@
-﻿namespace CustomerManagement.Data.Models
+﻿namespace CustomerManagement.Domain.Customers.Responses
 {
-    public class Customer
+    /// <summary>
+    ///     A customer object containing all customer details
+    /// </summary>
+    public class CustomerWithAllDetailsResponse
     {
         /// <summary>
         ///     Unique identifier for customer
@@ -28,18 +31,13 @@
         public string Surname { get; set; } = null!;
 
         /// <summary>
-        ///     Customer's addresses
+        ///     All customer contact avenues
         /// </summary>
-        public List<Address> Addresses { get; set; } = new();
+        public List<ContactDetailsResponse> ContactDetails { get; set; }
 
         /// <summary>
-        ///     Join tables to customer address. Default address flag is set here.
+        ///     All customer addresses
         /// </summary>
-        public List<CustomerAddress> CustomerAddresses { get; set; } = new();
-
-        /// <summary>
-        ///     Customer's contact details
-        /// </summary>
-        public List<ContactDetail> ContactDetails { get; set; } = new();
+        public List<AddressResponse> Addresses { get; set; }
     }
 }

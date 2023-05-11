@@ -3,7 +3,7 @@ using CustomerManagement.Api.Support;
 using CustomerManagement.Api.Swagger;
 using CustomerManagement.Common.Extensions;
 using CustomerManagement.Data;
-using CustomerManagement.Dto.Support;
+using CustomerManagement.Domain.Support;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +26,7 @@ namespace CustomerManagement.Api.Extensions
             {
                 options.OperationFilter<SwaggerDefaultValues>();
                 options.IncludeXmlComments(ApiAssemblyReference.Assembly.XmlCommentsFilePath());
-                options.IncludeXmlComments(DtoAssemblyReference.Assembly.XmlCommentsFilePath());
+                options.IncludeXmlComments(DomainAssemblyReference.Assembly.XmlCommentsFilePath());
             });
         }
 
@@ -36,6 +36,9 @@ namespace CustomerManagement.Api.Extensions
         /// <param name="serviceCollection"></param>
         public static void AddHealthChecks(this IServiceCollection serviceCollection)
         {
+            // serviceCollection
+            //     .AddHealthChecks()
+            //     .AddCheck<ApplicationHealthCheck>("Customer Management API Health Check");
         }
 
         /// <summary>
