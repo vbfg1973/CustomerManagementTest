@@ -29,6 +29,7 @@ namespace CustomerManagement.Api.Controllers
         #region Customer commands
 
         /// <summary>
+        ///     Creates a customer
         /// </summary>
         /// <param name="customerCreateCommandDto"></param>
         /// <param name="cancellationToken"></param>
@@ -46,7 +47,7 @@ namespace CustomerManagement.Api.Controllers
             return CreatedAtAction(nameof(GetCustomerById), new { id = customerWithAllDetailsResponseDto.Id },
                 customerWithAllDetailsResponseDto);
         }
-        
+
         /// <summary>
         ///     Deletes the customer identified by the customer ID, plus associated contact details and addresses
         /// </summary>
@@ -56,15 +57,13 @@ namespace CustomerManagement.Api.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteCustomer(Guid id, CancellationToken cancellationToken)
         {
-            var customerDeleteCommand = new CustomerDeleteCommand()
+            var customerDeleteCommand = new CustomerDeleteCommand
                 { Id = id, CorrelationId = Request.GetCorrelationId() };
 
             await Mediator.Send(customerDeleteCommand, cancellationToken);
 
             return Ok();
         }
-        
-        
 
         #endregion
 
