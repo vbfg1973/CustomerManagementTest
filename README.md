@@ -29,6 +29,7 @@
 - No validation except that provided by WebAPI naturally via interpretation of nullable properties.
 - The data model for the address <-> customer relationship is wrong. It should be *one to many* customer to addresses. It is *many to many*. I've left this in place.
 - There are creds in the docker-compose.yml for connecting to the DB. This is for your convenience of running it. This ought to be a shooting offence in a real repository.
+- Testing is limited to ensuring that controllers and DTOs have documentation comments attached. This is to make sure swagger documentation is available.
 
 ## To run it
 
