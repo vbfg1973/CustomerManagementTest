@@ -5,7 +5,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
 {
     /// <summary>
     /// </summary>
-    public class QueryCustomerById : IRequest<CustomerWithAllDetailsResponse>, ITrackableCustomerRequest
+    public class CustomerByIdQuery : IRequest<CustomerWithAllDetailsResponse>, ITrackableCustomerRequest
     {
         /// <summary>
         ///     Customer's ID

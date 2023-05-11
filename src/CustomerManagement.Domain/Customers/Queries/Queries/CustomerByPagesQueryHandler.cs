@@ -14,11 +14,11 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
     ///     Handler for simple id based customer lookup
     /// </summary>
     public class
-        QueryCustomerByPagesHandler : IRequestHandler<QueryCustomersByPages,
+        CustomerByPagesQueryHandler : IRequestHandler<CustomersByPagesQuery,
             PagedList<CustomerWithAllDetailsResponse>>
     {
         private readonly CustomerManagementContext _context;
-        private readonly ILogger<QueryCustomerByPagesHandler> _logger;
+        private readonly ILogger<CustomerByPagesQueryHandler> _logger;
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -27,8 +27,8 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="context"></param>
         /// <param name="mapper"></param>
         /// <param name="logger"></param>
-        public QueryCustomerByPagesHandler(CustomerManagementContext context, IMapper mapper,
-            ILogger<QueryCustomerByPagesHandler> logger)
+        public CustomerByPagesQueryHandler(CustomerManagementContext context, IMapper mapper,
+            ILogger<CustomerByPagesQueryHandler> logger)
         {
             _context = context;
             _mapper = mapper;
@@ -42,7 +42,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        public async Task<PagedList<CustomerWithAllDetailsResponse>> Handle(QueryCustomersByPages request,
+        public async Task<PagedList<CustomerWithAllDetailsResponse>> Handle(CustomersByPagesQuery request,
             CancellationToken cancellationToken)
         {
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Querying for customers"),
@@ -74,7 +74,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithSurname(QueryCustomersByPages request,
+        private IQueryable<Customer> AugmentQueryWithSurname(CustomersByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (!string.IsNullOrEmpty(request.Surname))
@@ -94,7 +94,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithEmail(QueryCustomersByPages request,
+        private IQueryable<Customer> AugmentQueryWithEmail(CustomersByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.EMail)) return queryable;
@@ -118,7 +118,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithPostalTown(QueryCustomersByPages request,
+        private IQueryable<Customer> AugmentQueryWithPostalTown(CustomersByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.PostalTown)) return queryable;
@@ -141,7 +141,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="request"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        private IQueryable<Customer> AugmentQueryWithPostCode(QueryCustomersByPages request,
+        private IQueryable<Customer> AugmentQueryWithPostCode(CustomersByPagesQuery request,
             IQueryable<Customer> queryable)
         {
             if (string.IsNullOrEmpty(request.PostCode)) return queryable;

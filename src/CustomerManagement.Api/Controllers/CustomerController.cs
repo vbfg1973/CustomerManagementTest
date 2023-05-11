@@ -23,16 +23,17 @@ namespace CustomerManagement.Api.Controllers
             _mapper = mapper;
         }
 
+        #region Customer queries
         /// <summary>
         ///     Returns a customer identified by the customer ID
         /// </summary>
-        /// <param name="queryDto"></param>
+        /// <param name="customersByPagesQueryDto"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetCustomerByPagedQuery([FromQuery] QueryCustomersByPagesDto queryDto, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetCustomerByPagedQuery([FromQuery] CustomersByPagesQueryDto customersByPagesQueryDto, CancellationToken cancellationToken)
         {
-            var queryCustomersByPages = _mapper.Map<QueryCustomersByPagesDto, QueryCustomersByPages>(queryDto);
+            var queryCustomersByPages = _mapper.Map<CustomersByPagesQueryDto, CustomersByPagesQuery>(customersByPagesQueryDto);
             queryCustomersByPages.CorrelationId = Request.GetCorrelationId();
             
             var result = await Mediator.Send(queryCustomersByPages, cancellationToken);
@@ -48,9 +49,10 @@ namespace CustomerManagement.Api.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetCustomerById(Guid id, CancellationToken cancellationToken)
         {
-            var queryCustomerById = new QueryCustomerById { Id = id, CorrelationId = Request.GetCorrelationId()};
+            var queryCustomerById = new CustomerByIdQuery { Id = id, CorrelationId = Request.GetCorrelationId()};
             var result = await Mediator.Send(queryCustomerById, cancellationToken);
             return Ok(result);
         }
+        #endregion
     }
 }

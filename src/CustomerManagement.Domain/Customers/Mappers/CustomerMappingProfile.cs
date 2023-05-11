@@ -19,7 +19,7 @@ namespace CustomerManagement.Domain.Customers.Mappers
             CreateMap<Address, AddressResponse>();
             CreateMap<ContactDetail, ContactDetailsResponse>();
 
-            CreateMap<QueryCustomersByPagesDto, QueryCustomersByPages>();
+            CreateMap<CustomersByPagesQueryDto, CustomersByPagesQuery>();
         }
     }
 }

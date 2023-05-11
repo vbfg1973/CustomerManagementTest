@@ -11,10 +11,10 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
     /// <summary>
     ///     Handler for simple id based customer lookup
     /// </summary>
-    public class QueryCustomerByIdHandler : IRequestHandler<QueryCustomerById, CustomerWithAllDetailsResponse>
+    public class CustomerByIdQueryHandler : IRequestHandler<CustomerByIdQuery, CustomerWithAllDetailsResponse>
     {
         private readonly CustomerManagementContext _context;
-        private readonly ILogger<QueryCustomerByIdHandler> _logger;
+        private readonly ILogger<CustomerByIdQueryHandler> _logger;
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -23,8 +23,8 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="context"></param>
         /// <param name="mapper"></param>
         /// <param name="logger"></param>
-        public QueryCustomerByIdHandler(CustomerManagementContext context, IMapper mapper,
-            ILogger<QueryCustomerByIdHandler> logger)
+        public CustomerByIdQueryHandler(CustomerManagementContext context, IMapper mapper,
+            ILogger<CustomerByIdQueryHandler> logger)
         {
             _context = context;
             _mapper = mapper;
@@ -38,7 +38,7 @@ namespace CustomerManagement.Domain.Customers.Queries.Queries
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        public async Task<CustomerWithAllDetailsResponse> Handle(QueryCustomerById request,
+        public async Task<CustomerWithAllDetailsResponse> Handle(CustomerByIdQuery request,
             CancellationToken cancellationToken)
         {
             _logger.LogDebug("{Message} {CorrelationId}", LogFmt.Message("Getting a single customer by their ID"),
